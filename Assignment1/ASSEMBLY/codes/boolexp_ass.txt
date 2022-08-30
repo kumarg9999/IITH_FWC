@@ -1,0 +1,44 @@
+.include "/home/kumar/kumar1/m328Pdef.inc"
+Start:
+
+ldi r16, 0b11111000 ; identifying input pins 8,9,10
+        out DDRB,r16            ; declaring pins as input
+        ldi r16, 0b11111111 ;
+        out PORTB,r16           ; activating internal pullup for pins 10,11,12
+        in r16,PINB
+
+ldi r30, 0b00111100 ;identifying output pins 2,3,4,5
+out DDRD,r30
+ldi r17,0b00000001
+ldi r18,0b00000001
+ldi r19,0b00000001
+
+AND r17,r16          ;r17=z
+LSR r16
+AND r18,r16           ;r18=y
+LSR r16
+AND r19,r16           ;r19=x
+
+ldi r21,0b00000001
+EOR r21,r17           ;r21=z'
+
+ldi r22,0b00000001
+EOR r22,r18           ;r22=y'
+ldi r23,0b00000001
+EOR r23,r19           ;r23=x'
+
+MOV r1,r19            ;r1=x
+AND r1,r18            ;r1=xy
+MOV r5,r23            ;r5=x'
+AND r5,r22            ;r5=x'y'
+MOV r6,r22            ;r6=y'
+AND r6,r17            ;r6=y'z
+OR r5,r6
+OR r1,r5               ; (A)
+
+MOV r25,r1            ;r30=0000000A
+LSL r25               ;r30=000000A0
+LSL r25               ;r30=00000A00
+out PortD,r25
+
+rjmp Start
