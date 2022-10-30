@@ -1,0 +1,89 @@
+\def\mytitle{Optimization Assignment-1}
+\def\myauthor{G.Kumar}
+\def\contact{kumargandhamaneni20016@gmail.com}
+\def\mymodule{Future Wireless Communication (FWC)}
+\documentclass[10pt, a4paper]{article}
+\usepackage[a4paper,outer=1.5cm,inner=1.5cm,top=1.75cm,bottom=1.5cm]{geometry}
+\twocolumn
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage[colorlinks,linkcolor={black},citecolor={blue!80!black},urlcolor={blue!80!black}]{hyperref}
+\usepackage[parfill]{parskip}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{tabularx}
+\usetikzlibrary{calc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\renewcommand*\familydefault{\sfdefault}
+\usepackage{watermark}
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{titlesec}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\titlespacing{\subsection}{1pt}{\parskip}{3pt}
+\titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
+\titlespacing{\paragraph}{0pt}{\parskip}{\parskip}
+\newcommand{\figuremacro}[5]{
+    \begin{figure}[#1]
+        \centering
+        \includegraphics[width=#5\columnwidth]{#2}
+        \caption[#3]{\textbf{#3}#4}
+        \label{fig:#2}
+    \end{figure}
+}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+\lstset{
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+\thiswatermark{\centering \put(0,-105.0){\includegraphics[scale=0.35]{iith}} }
+\title{\mytitle}
+\author{\myauthor\hspace{1em}\\\contact\\IITH\hspace{0.5em}-\hspace{0.5em}\mymodule}
+\date{}
+\begin{document}
+	\maketitle
+\paragraph{Problem:}
+A company produces soft drinks that has a contract which requires that a minimum of 80 units of the chemical A and 60 units of the chemical B go into each bottle of the drink. The chemicals are available in prepared mix packets from two different suppliers. Supplier S had a packet of mix of 4 units of A and 2 units of B that costs Rs.10. The supplier T has a packet of mix of 1unit of A and 1 unit of B that costs Rs.4. How many packets of mixes from S and T should the company purchase to honour the contract requirement and yet minimize the cost? Make a LPP and solve graphically.
+\section*{Solution} 
+\includegraphics[scale=0.5]{optfig.png} 
+\begin{flushleft}
+Let mixture contains x packets from supplier S,y packets from supplier T.\\
+According to given problem, the condition can be formulated as,\\
+\end{flushleft}
+\begin{align}
+P=\min_{x,y}(10x+4y)
+\end{align}
+where P is minimum cost of mixture.\\
+for Chemical A,
+\begin{align}
+4x+y \geq80
+\end{align}
+for Chemical B,
+\begin{align}
+2x+y \geq 60
+\end{align}
+mixture contains both x,y so,
+\begin{align}
+x\geq0,y\geq0
+\end{align}
+eq 1 and 2 to 4 can be expressed in vector form as
+\begin{align}
+\vec{P}=\min_{\vec{x}}\myvec{10 &4}\vec{x}\\
+\myvec{4 & 1\\
+       2 & 1\\
+       1 &0\\
+       0 & 1}\vec{x}&= \myvec{80 \\60\\0\\0}
+\end{align}
+Solving above equations using cvxpy, we get\\
+\vspace{0.1cm}\\
+\begin{align}
+P_{min}=260\\
+\vec{x}=\myvec{10\\40}
+\end{align}
+\end{document}

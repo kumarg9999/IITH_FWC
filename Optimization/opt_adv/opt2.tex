@@ -1,0 +1,106 @@
+\def\mytitle{Optimization Assignment-2}
+\def\myauthor{G.Kumar}
+\def\contact{kumargandhamaneni20016@gmail.com}
+\def\mymodule{Future Wireless Communication (FWC)}
+\documentclass[10pt, a4paper]{article}
+\usepackage[a4paper,outer=1.5cm,inner=1.5cm,top=1.75cm,bottom=1.5cm]{geometry}
+\twocolumn
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage[colorlinks,linkcolor={black},citecolor={blue!80!black},urlcolor={blue!80!black}]{hyperref}
+\usepackage[parfill]{parskip}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{tabularx}
+\usetikzlibrary{calc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\renewcommand*\familydefault{\sfdefault}
+\usepackage{watermark}
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{titlesec}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\titlespacing{\subsection}{1pt}{\parskip}{3pt}
+\titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
+\titlespacing{\paragraph}{0pt}{\parskip}{\parskip}
+\newcommand{\figuremacro}[5]{
+    \begin{figure}[#1]
+        \centering
+        \includegraphics[width=#5\columnwidth]{#2}
+        \caption[#3]{\textbf{#3}#4}
+        \label{fig:#2}
+    \end{figure}
+}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+\lstset{
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+\thiswatermark{\centering \put(0,-105.0){\includegraphics[scale=0.35]{iith}} }
+\title{\mytitle}
+\author{\myauthor\hspace{1em}\\\contact\\IITH\hspace{0.5em}-\hspace{0.5em}\mymodule}
+\date{}
+\begin{document}
+	\maketitle
+\paragraph{\textit{Problem Statement}}- Prove that the least perimeter of an isosceles triangle in which a circle of radius r can be inscribed is $6\sqrt{3}r$.
+
+\section*{\large Solution}
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\columnwidth]{opt2.png}
+\caption{Graph of f(x)}
+\label{fig:triangle}
+\end{figure}
+
+Let x be the length of each of the two equal sides, y be the length of the third side of the $\triangle{ABC}$ and $\angle{B}=\angle{C}$.\\
+Then,
+\begin{align}
+x=r\cot{\frac{C}{2}}+r\cot{\frac{A}{2}}\hspace{1em}and\hspace{1em}y=2r\cot{\frac{C}{2}}
+\end{align}	
+Now, perimeter of $\triangle{ABC}$ is,
+\begin{align}
+P=2x+y
+\end{align}
+\begin{align}
+\implies P=2r[2\cot{\frac{C}{2}}+\cot{\frac{A}{2}}]
+\end{align}
+Since, $\frac{A}{2}=\frac{\pi}{2}-C$,
+\begin{align}
+\implies P=2r[2\cot{\frac{C}{2}}+\tan{C}]
+\end{align}
+    \subsection*{\normalsize Gradient descent}
+    
+    
+    \begin{align}
+	\label{eq:vol_varx}
+	f(x) =2r[2\cot{\frac{x}{2}}+\tan{x}]\\
+    f'(x) = 2r[-cosec^2{\frac{x}{2}}+\sec^2{x}]
+	\end{align}
+
+we have to attain the maximum value of f(x). This can be seen in Figure f(x).Using gradient descent method we can find its minima value.
+\begin{equation}
+        x_{n+1} = x_n - \alpha \nabla f(x_n) \\
+\end{equation}
+\vspace{1mm}
+\begin{equation}
+\implies x_{n+1}=x_n+\alpha(2r[-cosec^2{\frac{x}{2}}+\sec^2{x}])
+\end{equation}
+
+Taking $x_0=0.5,\alpha=0.001$ and precision = 0.00000001, values obtained using python are:
+    
+
+    \begin{align}
+        \text{Minima} = 10.3923r\\
+        \implies \boxed{\text{Minima} = 6\sqrt{3}r}\\
+        \boxed{\text{Minima Point} = 1.0471}
+    \end{align}
+    \begin{align*}
+    \therefore  Hence\hspace{0.5em}Proved 
+    \end{align*} 
+   \end{document}
